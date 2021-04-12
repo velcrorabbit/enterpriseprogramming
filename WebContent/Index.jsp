@@ -16,14 +16,14 @@
 <body>
 	<h1>Film Database</h1>
 	<h2>Find all films</h2>
-	<form>
+	<form action="./getAllFilms">
 		<label for="dataType">Data Type:</label>
 		<select id="dataType" name="dataType">
 			<option value="xml" selected="selected">XML</option>
 			<option value="json">JSON</option>
 			<option value="text">Text</option>
 		</select>
-		<input type="submit" onClick='showAllFilmsByDataType("dataType", "all-film-list")'>
+		<input type="submit">
 	</form>
 	<div id="all-film-list"></div>
 	<h2>Search by name</h2>

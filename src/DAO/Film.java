@@ -2,10 +2,8 @@ package DAO;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "film")
-@XmlType(propOrder = { "id", "title", "year", "director", "cast", "review" })
 
 public class Film {
 	int id;

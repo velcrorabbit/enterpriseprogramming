@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -36,7 +35,6 @@ public class getFilm extends HttpServlet {
 		ArrayList<Film> filmList = filmDAO.getFilmsByName(userFilmName);
 
 		String address = "/WEB-INF/views/";
-		PrintWriter out = response.getWriter();
 		if (filmList.isEmpty()) {
 			
 			address+= "noresults.jsp";
@@ -48,13 +46,11 @@ public class getFilm extends HttpServlet {
 			request.setAttribute("films", filmJSON);
 			
 		} else if (userDataType.equals("XML")) {
-			response.setContentType("text/xml");
+			response.setContentType("text/plain");
 			try {
 				String xml = formatXML.createXML(filmList);
 				address += "xml-page.jsp";
 				request.setAttribute("films", xml);
-				System.out.println(xml);
-				out.println(xml);
 			} catch (JAXBException e) {
 				e.printStackTrace();
 			}

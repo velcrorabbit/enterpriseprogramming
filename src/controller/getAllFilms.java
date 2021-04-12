@@ -1,9 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,30 +26,45 @@ public class getAllFilms extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
 		
 		FilmDAO filmDAO = FilmDAO.getFilmDAO();
 		ArrayList<Film> filmList = filmDAO.getAllFilms();
-		String userDataType = request.getParameter("dataType");
-		
-		if (userDataType.equals("json")) {
+		String userDataType = request.getParameter("dataType").toUpperCase();
+
+		String address = "/WEB-INF/views/";
+		if (filmList.isEmpty()) {
+			
+			address+= "noresults.jsp";
+			
+		} else if (userDataType.equals("JSON")) {
 			JSONArray filmJSON = formatJSON.collectJsonObjects(filmList);
 			response.setContentType("application/json");
-			out.println(filmJSON);
-		} else if (userDataType.equals("xml")) {
-			response.setContentType("text/xml");
+			address += "json-page.jsp";
+			request.setAttribute("films", filmJSON);
+			
+		} else if (userDataType.equals("XML")) {
+			response.setContentType("text/plain");
 			try {
 				String xml = formatXML.createXML(filmList);
-				out.println(xml);
+				address += "xml-page.jsp";
+				request.setAttribute("films", xml);
 			} catch (JAXBException e) {
 				e.printStackTrace();
 			}
-		} else if (userDataType.equals("text")) {
+			
+		} else if (userDataType.equals("TEXT")) {
 			response.setContentType("text/plain");
+			address += "text-page.jsp";
+			String films = "";
 			for (Film film : filmList) {
-				out.println(film.toString());
+				films += film.toString();
 			}
+			request.setAttribute("films", films);
+			
 		}
+		
+	    RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+	    dispatcher.include(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

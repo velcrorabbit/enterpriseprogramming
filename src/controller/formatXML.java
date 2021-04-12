@@ -3,7 +3,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 
 import DAO.Film;
-import DAO.FilmCollection;
+import DAO.FilmList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -13,17 +13,21 @@ public class formatXML {
 
 	public static String createXML(ArrayList<Film> filmList) throws JAXBException {
 
-        FilmCollection filmCollection = new FilmCollection();
-        filmCollection.setFilmCollection(filmList);
+		FilmList filmListObject = new FilmList();
+		filmListObject.setFilmCollection(filmList);
         
-		JAXBContext context = JAXBContext.newInstance(FilmCollection.class);
+		JAXBContext context = JAXBContext.newInstance(FilmList.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         
         StringWriter stringWriter = new StringWriter();
-        marshaller.marshal(filmCollection, stringWriter);
-        System.out.println(stringWriter.toString());
-        return stringWriter.toString();
+        marshaller.marshal(filmListObject, stringWriter);
+        
+        String xml = stringWriter.toString();
+        StringBuilder stringBuilder = new StringBuilder(xml);
+        stringBuilder.replace(0, 55, "");
+        
+        return stringBuilder.toString();
 	}
 
 }
