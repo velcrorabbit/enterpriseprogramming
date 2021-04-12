@@ -1,8 +1,11 @@
 package DAO;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(propOrder = { "filmID", "filmTitle", "filmYear", "filmDirector", "filmCast", "filmReview" })
+@XmlRootElement(name = "film")
+@XmlType(propOrder = { "id", "title", "year", "director", "cast", "review" })
 
 public class Film {
 	int id;
@@ -25,7 +28,7 @@ public class Film {
 		this.cast = cast;
 		this.review = review;
 	}
-	
+    @XmlElement(name = "id")
 	public int getFilmID() {
 		return id;
 	}
@@ -33,7 +36,7 @@ public class Film {
 	public void setFilmID(int filmID) {
 		this.id = filmID;
 	}
-	
+    @XmlElement(name = "title")
 	public String getFilmTitle() {
 		return title;
 	}
@@ -41,7 +44,7 @@ public class Film {
 	public void setFilmTitle(String filmTitle) {
 		this.title = filmTitle;
 	}
-	
+    @XmlElement(name = "year")
 	public int getFilmYear() {
 		return year;
 	}
@@ -49,7 +52,7 @@ public class Film {
 	public void setFilmYear(int filmYear) {
 		this.year = filmYear;
 	}
-	
+    @XmlElement(name = "director")
 	public String getFilmDirector() {
 		return director;
 	}
@@ -57,7 +60,7 @@ public class Film {
 	public void setFilmDirector(String filmDirector) {
 		this.director = filmDirector;
 	}
-	
+    @XmlElement(name = "cast")
 	public String getFilmCast() {
 		return cast;
 	}
@@ -65,7 +68,7 @@ public class Film {
 	public void setFilmCast(String filmCast) {
 		this.cast = filmCast;
 	}
-	
+    @XmlElement(name = "review")
 	public String getFilmReview() {
 		return review;
 	}
