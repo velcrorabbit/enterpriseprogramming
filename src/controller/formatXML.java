@@ -22,7 +22,7 @@ public class formatXML {
         
         StringWriter stringWriter = new StringWriter();
         marshaller.marshal(filmCollection, stringWriter);
-        
+        System.out.println(stringWriter.toString());
         return stringWriter.toString();
 	}
 

@@ -53,7 +53,7 @@ public class getFilm extends HttpServlet {
 				String xml = formatXML.createXML(filmList);
 				address += "xml-page.jsp";
 				request.setAttribute("films", xml);
-				//System.out.println(xml);
+				System.out.println(xml);
 				out.println(xml);
 			} catch (JAXBException e) {
 				e.printStackTrace();
