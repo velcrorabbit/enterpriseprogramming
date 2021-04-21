@@ -1,10 +1,132 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="utf-8" />
+<title>Film Database</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./scripts/table-builder.js"></script>
+<script src="./scripts/ajax-utils.js"></script>
 </head>
 <body>
-
+	<div class="container">
+		<h1 class="text-center">Film Database</h1>
+		<div class="row">
+			<div class="col-3">
+				<button class="btn btn-secondary" data-toggle="collapse"
+					data-target="#show-all-films">Show all films</button>
+				<form action="#" id="show-all-films" class="collapse">
+					<div class="input-group mb-3 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Data Type:</span>
+						</div>
+						<select class="form-control" id="dataType1" name="dataType1">
+							<option value="json">JSON</option>
+							<option value="xml">XML</option>
+							<option value="text">Text</option>
+						</select><br />
+					</div>
+					<button type="button" class="btn btn-primary"
+						onclick='getAllData("result-message", "dataType1")'>Show Films</button>
+				</form>
+			</div>
+			<div class="col-3">
+				<button class="btn btn-secondary" data-toggle="collapse"
+					data-target="#search-by-name">Search by name</button>
+				<form action="#" id="search-by-name" class="collapse">
+					<div class="input-group mb-3 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Name:</span>
+						</div>
+						<input type="text" class="form-control" id="filmName"
+							name="filmName">
+					</div>
+					<div class="input-group mb-3 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Data Type:</span>
+						</div>
+						<select class="form-control" id="dataType2" name="dataType2">
+							<option value="json">JSON</option>
+							<option value="xml">XML</option>
+							<option value="text">Text</option>
+						</select><br />
+					</div>
+					<button type="button" class="btn btn-primary"
+						onclick='getData("result-message", "filmName", "dataType2")'>Show
+						Films</button>
+				</form>
+			</div>
+			<div class="col-3">
+				<button class="btn btn-secondary" data-toggle="collapse"
+					data-target="#add-new-film">Add a new film</button>
+				<form action="#" id="add-new-film" class="collapse">
+					<div class="input-group mb-3 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">ID:</span>
+						</div>
+						<input type="number" class="form-control" id="ID" name="ID"
+							pattern="[0-9]">
+					</div>
+					<div class="input-group mb-3 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Title:</span>
+						</div>
+						<input type="text" class="form-control" id="Title" name="Title">
+					</div>
+					<div class="input-group mb-3 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Year:</span>
+						</div>
+						<input type="number" class="form-control" id="Year" name="Year"
+							pattern="[0-9]" maxlength=4>
+					</div>
+					<div class="input-group mb-3 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Director:</span>
+						</div>
+						<input type="text" class="form-control" id="Director"
+							name="Director">
+					</div>
+					<div class="input-group mb-3 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Cast:</span>
+						</div>
+						<input type="text" class="form-control" id="Cast" name="Cast">
+					</div>
+					<div class="input-group mb-3 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Review:</span>
+						</div>
+						<input type="text" class="form-control" id="Review" name="Review">
+					</div>
+					<button type="button" class="btn btn-primary"
+						onclick='insertFilm("result-message", "ID", "Title", "Year", "Director", "Cast", "Review")'>Add
+						Film</button>
+				</form>
+			</div>
+			<div class="col-3">
+				<button class="btn btn-secondary" data-toggle="collapse"
+					data-target="#delete-a-film">Delete a film</button>
+				<form action="#" id="delete-a-film" class="collapse">
+					<div class="input-group mb-3 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">ID:</span>
+						</div>
+						<input type="number" class="form-control" id="ID2" name="ID2"
+							pattern="[0-9]">
+					</div>
+					<button type="button" class="btn btn-primary"
+						onclick='deleteFilm("result-message", "ID2")'>Delete Film</button>
+				</form>
+			</div>
+		</div>
+		<div id="result-message"></div>
+	</div>
 </body>
 </html>

@@ -77,7 +77,7 @@ public class Film {
 	
 	@Override
 	public String toString() {
-		return "[ID = " + id + ", Title = " + title + ", Year = " + year + ", Director = "
-				+ director + ", Cast = " + cast + ", Review = " + review + "]\n";
+		return id + "#" + title + "#" + year + "#"
+				+ director + "#" + cast + "#" + review + "\n";
 	}
 }

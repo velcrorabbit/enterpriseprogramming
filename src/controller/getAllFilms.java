@@ -31,22 +31,22 @@ public class getAllFilms extends HttpServlet {
 		ArrayList<Film> filmList = filmDAO.getAllFilms();
 		String userDataType = request.getParameter("dataType").toUpperCase();
 
-		String address = "/WEB-INF/views/";
+		String address = "";
 		if (filmList.isEmpty()) {
 			
-			address+= "noresults.jsp";
+			address = "noresults.jsp";
 			
 		} else if (userDataType.equals("JSON")) {
 			JSONArray filmJSON = formatJSON.collectJsonObjects(filmList);
 			response.setContentType("application/json");
-			address += "json-page.jsp";
+			address = "json-page.jsp";
 			request.setAttribute("films", filmJSON);
 			
 		} else if (userDataType.equals("XML")) {
-			response.setContentType("text/plain");
+			response.setContentType("text/xml");
 			try {
 				String xml = formatXML.createXML(filmList);
-				address += "xml-page.jsp";
+				address = "xml-page.jsp";
 				request.setAttribute("films", xml);
 			} catch (JAXBException e) {
 				e.printStackTrace();
@@ -54,7 +54,7 @@ public class getAllFilms extends HttpServlet {
 			
 		} else if (userDataType.equals("TEXT")) {
 			response.setContentType("text/plain");
-			address += "text-page.jsp";
+			address = "text-page.jsp";
 			String films = "";
 			for (Film film : filmList) {
 				films += film.toString();

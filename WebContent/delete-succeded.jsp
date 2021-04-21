@@ -1,0 +1,1 @@
+<div class="alert alert-success"><p>${filmTitle} has been deleted</p></div>
