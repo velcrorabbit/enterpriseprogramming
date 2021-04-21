@@ -5,22 +5,21 @@ function buildJsonTable(films) {
 	var tableData='';
 	
 	for (i = 0; i < films.length; i++){
-		tableData += buildJsonRowHTML(films[i]);
+		tableData += buildJsonRow(films[i]);
 	}
 
 	return firstHtml + tableData + endHtml;
 }
 
-function buildJsonRowHTML(film) {
+function buildJsonRow(film) {
 
-	var html = "<tr><td>" + film.id + "</td><td>" + film.title
-		+ "</td><td>" + film.year + "</td><td>" + film.director
-		+ "</td><td>" + film.cast + "</td><td>" + film.review 
-		+ "</td><td><a href='amend-form.jsp?id="+ film.id + "&title="
-		+ removeSpacesForURL(film.title) + "&year="+ film.year 
-		+ "&director="+ removeSpacesForURL(film.director) +"&cast="
-		+ removeSpacesForURL(film.cast) +"&review="+ removeSpacesForURL(film.review) +"'><button type='button' class='btn btn-warning'>"
-		+ "Amend</button></a></td></tr>";
+	
+	var html = buildRowHTML(film.id,
+							film.title,
+							film.year,
+							film.director,
+							film.cast,
+							film.review)
 	return html;
 }
 
@@ -29,20 +28,20 @@ function buildXmlTable(films) {
 	var films = films.getElementsByTagName("film");
 	
 	for (i = 0; i < films.length; i++){
-		tableData += buildXmlRowHTML(films[i]);
+		tableData += buildXmlRow(films[i]);
 	}
 
 	return firstHtml + tableData + endHtml;
 }
 
-function buildXmlRowHTML(film) {
+function buildXmlRow(film) {
 
-	var html = "<tr><td>" + film.getElementsByTagName("id")[0].childNodes[0].nodeValue 
-		+ "</td><td>" + film.getElementsByTagName("title")[0].childNodes[0].nodeValue
-		+ "</td><td>" + film.getElementsByTagName("year")[0].childNodes[0].nodeValue 
-		+ "</td><td>" + film.getElementsByTagName("director")[0].childNodes[0].nodeValue
-		+ "</td><td>" + film.getElementsByTagName("cast")[0].childNodes[0].nodeValue 
-		+ "</td><td>" + film.getElementsByTagName("review")[0].childNodes[0].nodeValue + "</td></tr>";
+	var html = buildRowHTML(film.getElementsByTagName("id")[0].childNodes[0].nodeValue,
+							film.getElementsByTagName("title")[0].childNodes[0].nodeValue,
+							film.getElementsByTagName("year")[0].childNodes[0].nodeValue,
+							film.getElementsByTagName("director")[0].childNodes[0].nodeValue,
+							film.getElementsByTagName("cast")[0].childNodes[0].nodeValue,
+							film.getElementsByTagName("review")[0].childNodes[0].nodeValue);
 	return html;
 }
 
@@ -52,21 +51,37 @@ function buildTextTable(films) {
 	var filmsArray = new Array(filmsSplit.length-1);
 	for (i = 0; i < filmsArray.length; i++){
 		filmsArray[i] = filmsSplit[i].split('#');
-		tableData += buildTextRowHTML(filmsArray[i]);
+		tableData += buildTextRow(filmsArray[i]);
 	}
 
 	return firstHtml + tableData + endHtml;
 }
 
-function buildTextRowHTML(film) {
+function buildTextRow(film) {
 
-	var html = "<tr><td>" + film[0]
-		+ "</td><td>" + film[1]
-		+ "</td><td>" + film[2]
-		+ "</td><td>" + film[3]
-		+ "</td><td>" + film[4]
-		+ "</td><td>" + film[5]
-		+ "</td></tr>";
+	var html = buildRowHTML(film[0],
+							film[1],
+							film[2],
+							film[3],
+							film[4],
+							film[5]);
+	return html;
+}
+
+function buildRowHTML(id, title, year, director, cast, review) {
+	
+	var html = "<tr><td>" + id 
+		+ "</td><td>" + title
+		+ "</td><td>" + year
+		+ "</td><td>" + director
+		+ "</td><td>" + cast
+		+ "</td><td>" + review
+		+ "</td><td><a href='amend-form.jsp?id="+ id + "&title="
+		+ removeSpacesForURL(title) + "&year="+ year 
+		+ "&director="+ removeSpacesForURL(director) +"&cast="
+		+ removeSpacesForURL(cast) +"&review="+ removeSpacesForURL(review)
+		+ "''><button type='button' class='btn btn-warning'>"
+		+ "Amend</button></a></td></tr>";
 	return html;
 }
 
